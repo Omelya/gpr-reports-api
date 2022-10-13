@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\InvolvementRequest;
+use App\Http\Transformers\Involvement\InvolvementTransformer;
 
 class InvolvementController extends Controller
 {
     public function create(
-        Request $request,
-        InvolvementRequest $involvementRequest
+        InvolvementRequest $involvementRequest,
+        InvolvementTransformer $involvementTransformer
     )
     {
-
+        return $involvementTransformer->transform($involvementRequest)->getActCode();
     }
 }
