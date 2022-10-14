@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvolvementTable extends Migration
+class CreateInvolvementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateInvolvementTable extends Migration
      */
     public function up()
     {
-        Schema::create('involvement', function (Blueprint $table) {
+        Schema::create('involvements', function (Blueprint $table) {
             $table->id();
             $table->string('act_code')->unique();
             $table->string('report_code')->unique();
@@ -42,6 +42,6 @@ class CreateInvolvementTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('involvement');
+        Schema::dropIfExists('involvements');
     }
 };
