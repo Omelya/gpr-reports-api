@@ -34,6 +34,23 @@ class InvolvementRepository extends BaseRepository
             ]);
     }
 
+    public function getAllInvolvement()
+    {
+        return $this
+            ->query()
+            ->select([
+                'id',
+                'act_code',
+                'report_code',
+                'date_notification',
+                'task_type',
+                'place_execution',
+                'examined',
+                'ammunition'
+            ])
+            ->get();
+    }
+
     public function getModel(): Involvement
     {
         return new Involvement();
