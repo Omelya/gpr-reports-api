@@ -46,7 +46,7 @@ class InvolvementRequest extends FormRequest
             'data.attributes.coordinates.N' => 'required|numeric',
             'data.attributes.coordinates.E' => 'required|numeric',
             'data.attributes.examined' => 'required|numeric',
-            'data.attributes.persons' => 'required|array|size:1',
+            'data.attributes.persons' => 'required|array|min:1',
             'data.attributes.persons.*' => 'required|string',
             'data.attributes.ammunition' => 'array',
             'data.attributes.ammunition.*' => 'required_with:data.attributes.ammunitions',
