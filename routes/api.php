@@ -15,3 +15,4 @@ use App\Http\Controllers\InvolvementController;
 
 Route::post('/involvement', [InvolvementController::class, 'create']);
 Route::get('/all-involvement', [InvolvementController::class, 'getAllInvolvement']);
+Route::delete('/remove-involvement/{id}', [InvolvementController::class, 'removeInvolvement']);

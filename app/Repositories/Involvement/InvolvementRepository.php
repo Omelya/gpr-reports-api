@@ -51,6 +51,14 @@ class InvolvementRepository extends BaseRepository
             ->get();
     }
 
+    public function removeInvolvement(string $id)
+    {
+        return $this
+            ->query()
+            ->where('id', $id)
+            ->delete();
+    }
+
     public function getModel(): Involvement
     {
         return new Involvement();

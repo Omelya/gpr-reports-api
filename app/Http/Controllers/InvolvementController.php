@@ -28,4 +28,14 @@ class InvolvementController extends Controller
 
         return new AllInvolvementResource($involvement);
     }
+
+    public function removeInvolvement(
+        string $involvementId,
+        InvolvementRepository $involvementRepository
+    )
+    {
+        $involvementRepository->removeInvolvement($involvementId);
+
+        return response()->noContent();
+    }
 }
