@@ -6,11 +6,12 @@ use App\Models\Involvement;
 use App\Repositories\BaseRepository;
 use App\Services\Involvement\DTO\InvolvementDTO;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class InvolvementRepository extends BaseRepository
 {
-    public function create(InvolvementDTO $involvementDTO)
+    public function create(InvolvementDTO $involvementDTO): Model|Builder
     {
         return $this
             ->query()
@@ -34,7 +35,7 @@ class InvolvementRepository extends BaseRepository
             ]);
     }
 
-    public function getAllInvolvement()
+    public function getAll(): Collection|array
     {
         return $this
             ->query()
@@ -51,12 +52,45 @@ class InvolvementRepository extends BaseRepository
             ->get();
     }
 
-    public function removeInvolvement(string $id)
+    public function remove(string $id)
     {
         return $this
             ->query()
             ->where('id', $id)
             ->delete();
+    }
+
+    public function edit(InvolvementDTO $involvementDTO, string $id): int
+    {
+        return $this
+            ->query()
+            ->where('id', $id)
+            ->update([
+                'act_code' => $involvementDTO->getActCode(),
+                'report_code' => $involvementDTO->getReportCode(),
+                'date_notification' => $involvementDTO->getDateNotification(),
+                'date_received' => $involvementDTO->getDataReceived(),
+                'start_date' => $involvementDTO->getStartDate(),
+                'end_date' => $involvementDTO->getEndDate(),
+                'task_type' => $involvementDTO->getTaskType(),
+                'work_status' => $involvementDTO->getWorkStatus(),
+                'place_execution' => $involvementDTO->getPlaceExecution(),
+                'coordinates' => json_encode($involvementDTO->getCoordinates()),
+                'examined' => $involvementDTO->getExamined(),
+                'persons' => json_encode($involvementDTO->getPersons()),
+                'ammunition' => json_encode($involvementDTO->getAmmunition()),
+                'all_ammunition' => $involvementDTO->getAllAmmunition(),
+                'tnt' => $involvementDTO->getTnt(),
+                'detonator' => $involvementDTO->getDetonator()
+            ]);
+    }
+
+    public function getById(string $id)
+    {
+        return $this
+            ->query()
+            ->where('id', $id)
+            ->first();
     }
 
     public function getModel(): Involvement

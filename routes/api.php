@@ -13,6 +13,8 @@ use App\Http\Controllers\InvolvementController;
 |
 */
 
+Route::get('/all-involvement', [InvolvementController::class, 'getAll']);
 Route::post('/involvement', [InvolvementController::class, 'create']);
-Route::get('/all-involvement', [InvolvementController::class, 'getAllInvolvement']);
-Route::delete('/remove-involvement/{id}', [InvolvementController::class, 'removeInvolvement']);
+Route::delete('/involvement/{id}', [InvolvementController::class, 'remove']);
+Route::patch('/involvement/{id}', [InvolvementController::class, 'edit']);
+Route::get('/involvement/{id}', [InvolvementController::class, 'get']);

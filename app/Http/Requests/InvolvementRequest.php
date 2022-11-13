@@ -50,7 +50,7 @@ class InvolvementRequest extends FormRequest
             'data.attributes.persons.*' => 'required|string',
             'data.attributes.ammunition' => 'array',
             'data.attributes.ammunition.*' => 'required_with:data.attributes.ammunitions',
-            'data.attributes.all_ammunition' => 'required_with:data.attributes.ammunitions|integer|min:1',
+            'data.attributes.all_ammunition' => 'required_with:data.attributes.ammunitions|integer|min:0',
             'data.attributes.tnt' => 'required|numeric',
             'data.attributes.detonator' => 'required|integer'
         ];

@@ -17,8 +17,14 @@ class InvolvementResource extends JsonResource
      */
     public function toArray($request): array|JsonSerializable|Arrayable
     {
-        return [
-            'save' => (bool)$this->id
-        ];
+        if (isset($this->id)) {
+            return [
+                'save' => (bool)$this->id
+            ];
+        } else {
+            return [
+                'update' => (bool)$this
+            ];
+        }
     }
 }

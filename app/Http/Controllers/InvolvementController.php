@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvolvementRequest;
+use App\Http\Resources\InvolvementsResource;
 use App\Http\Transformers\Involvement\InvolvementTransformer;
 use App\Repositories\Involvement\InvolvementRepository;
 use App\Http\Resources\InvolvementResource;
@@ -21,21 +22,42 @@ class InvolvementController extends Controller
         return new InvolvementResource($involvement);
     }
 
-    public function getAllInvolvement(
+    public function getAll(
         InvolvementRepository $involvementRepository
     ) {
-        $involvement = $involvementRepository->getAllInvolvement();
+        $involvement = $involvementRepository->getAll();
 
         return new AllInvolvementResource($involvement);
     }
 
-    public function removeInvolvement(
+    public function remove(
         string $involvementId,
         InvolvementRepository $involvementRepository
     )
     {
-        $involvementRepository->removeInvolvement($involvementId);
+        $involvementRepository->remove($involvementId);
 
         return response()->noContent();
+    }
+
+    public function edit(
+        string $id,
+        InvolvementRequest $involvementRequest,
+        InvolvementTransformer $involvementTransformer,
+        InvolvementRepository $involvementRepository
+    ) {
+        $involvementDTO = $involvementTransformer->transform($involvementRequest);
+        $involvement = $involvementRepository->edit($involvementDTO, $id);
+
+        return new InvolvementResource($involvement);
+    }
+
+    public function get(
+        string $id,
+        InvolvementRepository $involvementRepository
+    ) {
+        $involvement = $involvementRepository->getById($id);
+
+        return new InvolvementsResource($involvement);
     }
 }
