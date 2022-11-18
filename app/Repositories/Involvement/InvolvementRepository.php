@@ -8,6 +8,7 @@ use App\Services\Involvement\DTO\InvolvementDTO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class InvolvementRepository extends BaseRepository
 {
@@ -60,29 +61,30 @@ class InvolvementRepository extends BaseRepository
             ->delete();
     }
 
-    public function edit(InvolvementDTO $involvementDTO, string $id): int
+    public function edit(InvolvementDTO $involvementDTO, string $id)
     {
-        return $this
+        $involvement = $this
             ->query()
-            ->where('id', $id)
-            ->update([
-                'act_code' => $involvementDTO->getActCode(),
-                'report_code' => $involvementDTO->getReportCode(),
-                'date_notification' => $involvementDTO->getDateNotification(),
-                'date_received' => $involvementDTO->getDataReceived(),
-                'start_date' => $involvementDTO->getStartDate(),
-                'end_date' => $involvementDTO->getEndDate(),
-                'task_type' => $involvementDTO->getTaskType(),
-                'work_status' => $involvementDTO->getWorkStatus(),
-                'place_execution' => $involvementDTO->getPlaceExecution(),
-                'coordinates' => json_encode($involvementDTO->getCoordinates()),
-                'examined' => $involvementDTO->getExamined(),
-                'persons' => json_encode($involvementDTO->getPersons()),
-                'ammunition' => json_encode($involvementDTO->getAmmunition()),
-                'all_ammunition' => $involvementDTO->getAllAmmunition(),
-                'tnt' => $involvementDTO->getTnt(),
-                'detonator' => $involvementDTO->getDetonator()
-            ]);
+            ->findOrFail($id);
+
+        return $involvement->update([
+            'act_code' => $involvementDTO->getActCode(),
+            'report_code' => $involvementDTO->getReportCode(),
+            'date_notification' => $involvementDTO->getDateNotification(),
+            'date_received' => $involvementDTO->getDataReceived(),
+            'start_date' => $involvementDTO->getStartDate(),
+            'end_date' => $involvementDTO->getEndDate(),
+            'task_type' => $involvementDTO->getTaskType(),
+            'work_status' => $involvementDTO->getWorkStatus(),
+            'place_execution' => $involvementDTO->getPlaceExecution(),
+            'coordinates' => json_encode($involvementDTO->getCoordinates()),
+            'examined' => $involvementDTO->getExamined(),
+            'persons' => json_encode($involvementDTO->getPersons()),
+            'ammunition' => json_encode($involvementDTO->getAmmunition()),
+            'all_ammunition' => $involvementDTO->getAllAmmunition(),
+            'tnt' => $involvementDTO->getTnt(),
+            'detonator' => $involvementDTO->getDetonator()
+        ]);
     }
 
     public function getById(string $id)
