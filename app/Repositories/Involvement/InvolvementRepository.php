@@ -8,7 +8,6 @@ use App\Services\Involvement\DTO\InvolvementDTO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class InvolvementRepository extends BaseRepository
 {
@@ -93,6 +92,14 @@ class InvolvementRepository extends BaseRepository
             ->query()
             ->where('id', $id)
             ->first();
+    }
+
+    public function getAllByDate(string $dateFrom, string $dateTo): Collection|array
+    {
+        return $this
+            ->query()
+            ->whereBetween('date_notification', [$dateFrom, $dateTo])
+            ->get();
     }
 
     public function getModel(): Involvement

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvolvementController;
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,3 +19,4 @@ Route::post('/involvement', [InvolvementController::class, 'create']);
 Route::delete('/involvement/{id}', [InvolvementController::class, 'remove']);
 Route::patch('/involvement/{id}', [InvolvementController::class, 'edit']);
 Route::get('/involvement/{id}', [InvolvementController::class, 'get']);
+Route::get('/report', [ReportController::class, 'get']);
