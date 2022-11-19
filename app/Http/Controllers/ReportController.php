@@ -5,24 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ReportRequest;
 use App\Http\Transformers\Report\ReportTransformer;
 use App\Repositories\Involvement\InvolvementRepository;
-use Illuminate\Http\Request;
+use App\Services\Report\ReportServices;
 
 class ReportController extends Controller
 {
     public function get(
         ReportRequest $request,
         ReportTransformer $reportTransformer,
-        InvolvementRepository $involvementRepository
+        InvolvementRepository $involvementRepository,
+        ReportServices $reportServices
     ) {
         $reportDTO = $reportTransformer->transform(
             $request->input('filter.date_from'),
             $request->input('filter.date_to')
         );
-        $involvement = $involvementRepository->getAllByDate(
+        $involvements = $involvementRepository->getAllByDate(
             $reportDTO->getDateFrom(),
             $reportDTO->getDateTo()
         );
 
-        return $involvement;
+        return $reportServices->setInvolvements($involvements)->createReportByPromptResponse();
     }
 }

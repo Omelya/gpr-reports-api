@@ -94,7 +94,7 @@ class InvolvementRepository extends BaseRepository
             ->first();
     }
 
-    public function getAllByDate(string $dateFrom, string $dateTo): Collection|array
+    public function getAllByDate(string $dateFrom, string $dateTo): Collection
     {
         return $this
             ->query()
