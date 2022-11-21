@@ -24,6 +24,6 @@ class ReportController extends Controller
             $reportDTO->getDateTo()
         );
 
-        return $reportServices->setInvolvements($involvements)->createReportByPromptResponse();
+        return $reportServices->setInvolvements($involvements)->getReports();
     }
 }
