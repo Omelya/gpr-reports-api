@@ -35,16 +35,16 @@ class ReportServices
 
     public function getReports(): array
     {
-        $this->createReportByPromptResponse();
-        $this->createReportByHumanitarianDemining();
-        $this->createReportByTechnicalExamination();
+        $this->createReportByWorkType('ОР', 'Оперативне реагування');
+        $this->createReportByWorkType('ГР', 'Гуманітарне розмінування');
+        $this->createReportByWorkType('ТО', 'Технічне розмінування');
+//        $this->createReportForRiskEducation('НР', 'Навчання ризикам'); TODO
 
         return $this->reports;
     }
 
-    public function createReportByPromptResponse(): array
+    public function createReportByWorkType(string $type, string $name): array
     {
-        $type = 'ОР';
         $completedApplications = $this->getCountedNumberParams($type, 'done');
         $numberEngagements = $this->getCountedNumberParams($type, 'all');
         $territorySurveyed = $this->getCountedNumberParams($type, 'all', 'examined');
@@ -52,7 +52,7 @@ class ReportServices
         $tnt = $this->getCountedNumberParams($type, 'all', 'tnt');
         $detonators = $this->getCountedNumberParams($type, 'all', 'detonator');
 
-        return $this->reports['Оперативне реагування'] = [
+        return $this->reports[$name] = [
             'Виконано заявок' => $completedApplications,
             'Проведено залучень' => $numberEngagements,
             'Обстежено території' => $territorySurveyed,
@@ -62,39 +62,14 @@ class ReportServices
         ];
     }
 
-    public function createReportByHumanitarianDemining(): array
+    public function createReportForRiskEducation(string $type, string $name): array
     {
-        $type = 'ГР';
-        $numberEngagements = $this->getCountedNumberParams($type, 'all');
-        $territorySurveyed = $this->getCountedNumberParams($type, 'all', 'examined');
-        $ammunition = $this->countAmmunitionByTypes($type);
-        $tnt = $this->getCountedNumberParams($type, 'all', 'tnt');
-        $detonators = $this->getCountedNumberParams($type, 'all', 'detonator');
+        $numberLesson = $this->getCountedNumberParams($type, 'all');
+        $numberPeople = $this->getCountedNumberParams($type, 'all', 'peoples');
 
-        return $this->reports['Гуманітарне розмінування'] = [
-            'Проведено залучень' => $numberEngagements,
-            'Обстежено території' => $territorySurveyed,
-            'Виявлені ВНП' => $ammunition,
-            'Використано тротилу' => $tnt,
-            'Використано детонаторів' => $detonators
-        ];
-    }
-
-    public function createReportByTechnicalExamination(): array
-    {
-        $type = 'ТО';
-        $numberEngagements = $this->getCountedNumberParams($type, 'all');
-        $territorySurveyed = $this->getCountedNumberParams($type, 'all', 'examined');
-        $ammunition = $this->countAmmunitionByTypes($type);
-        $tnt = $this->getCountedNumberParams($type, 'all', 'tnt');
-        $detonators = $this->getCountedNumberParams($type, 'all', 'detonator');
-
-        return $this->reports['Технічне обстеження'] = [
-            'Проведено залучень' => $numberEngagements,
-            'Обстежено території' => $territorySurveyed,
-            'Виявлені ВНП' => $ammunition,
-            'Використано тротилу' => $tnt,
-            'Використано детонаторів' => $detonators
+        return $this->reports[$name] = [
+            'Кількість навчань' => $numberLesson,
+            'Охоплено осіб' => $numberPeople
         ];
     }
 
