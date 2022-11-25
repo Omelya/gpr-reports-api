@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ReportRequest extends FormRequest
 {
@@ -25,7 +26,11 @@ class ReportRequest extends FormRequest
     {
         return [
             'filter.date_from' => 'required|string|date_format:Y-m-d',
-            'filter.date_to' => 'required|string|date_format:Y-m-d'
+            'filter.date_to' => 'required|string|date_format:Y-m-d',
+            'filter.reports_type' => [
+                'string',
+                Rule::in(['all', 'ОР', 'ГР', 'ТО'])
+            ]
         ];
     }
 }

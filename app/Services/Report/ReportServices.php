@@ -33,11 +33,24 @@ class ReportServices
         return $this;
     }
 
-    public function getReports(): array
+    public function getReports(string $type): array
     {
-        $this->createReportByWorkType('ОР', 'Оперативне реагування');
-        $this->createReportByWorkType('ГР', 'Гуманітарне розмінування');
-        $this->createReportByWorkType('ТО', 'Технічне розмінування');
+        switch ($type) {
+            case 'ОР':
+                $this->createReportByWorkType('ОР', 'Оперативне реагування');
+                break;
+            case 'ГР':
+                $this->createReportByWorkType('ГР', 'Гуманітарне розмінування');
+                break;
+            case 'ТО':
+                $this->createReportByWorkType('ТО', 'Технічне обстеження');
+                break;
+            default:
+                $this->createReportByWorkType('ОР', 'Оперативне реагування');
+                $this->createReportByWorkType('ГР', 'Гуманітарне розмінування');
+                $this->createReportByWorkType('ТО', 'Технічне обстеження');
+        }
+
 //        $this->createReportForRiskEducation('НР', 'Навчання ризикам'); TODO
 
         return $this->reports;
@@ -120,7 +133,7 @@ class ReportServices
         $ammunition['Всього ВНП'] = 0;
 
         foreach ($ammunition as $type => $number) {
-            if ($type === 'набої') {
+            if ($type === 'Набої') {
                 continue;
             }
 

@@ -17,13 +17,14 @@ class ReportController extends Controller
     ) {
         $reportDTO = $reportTransformer->transform(
             $request->input('filter.date_from'),
-            $request->input('filter.date_to')
+            $request->input('filter.date_to'),
+            $request->input('filter.reports_type')
         );
         $involvements = $involvementRepository->getAllByDate(
             $reportDTO->getDateFrom(),
             $reportDTO->getDateTo()
         );
 
-        return $reportServices->setInvolvements($involvements)->getReports();
+        return $reportServices->setInvolvements($involvements)->getReports($reportDTO->getReportsType());
     }
 }
