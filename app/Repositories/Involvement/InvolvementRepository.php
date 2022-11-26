@@ -35,7 +35,7 @@ class InvolvementRepository extends BaseRepository
             ]);
     }
 
-    public function getAll(): Collection|array
+    public function getAll(string $order, string $direction): Collection|array
     {
         return $this
             ->query()
@@ -49,6 +49,7 @@ class InvolvementRepository extends BaseRepository
                 'examined',
                 'ammunition'
             ])
+            ->orderBy($order, $direction)
             ->get();
     }
 
