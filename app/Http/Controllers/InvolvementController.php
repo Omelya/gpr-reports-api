@@ -8,6 +8,7 @@ use App\Http\Transformers\Involvement\InvolvementTransformer;
 use App\Repositories\Involvement\InvolvementRepository;
 use App\Http\Resources\InvolvementResource;
 use App\Http\Resources\AllInvolvementResource;
+use Illuminate\Http\Request;
 
 class InvolvementController extends Controller
 {
@@ -23,9 +24,13 @@ class InvolvementController extends Controller
     }
 
     public function getAll(
+        Request $request,
         InvolvementRepository $involvementRepository
     ) {
-        $involvement = $involvementRepository->getAll();
+        $involvement = $involvementRepository->getAll(
+            $request->input('filter.order') ?? 'date_notification',
+            $request->input('filter.direction') ?? 'asc'
+        );
 
         return new AllInvolvementResource($involvement);
     }
