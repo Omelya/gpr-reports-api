@@ -1,12 +1,12 @@
 APP = gpr-reports-api
 
-.PHONY: install
-install:
-	composer install
-
 .PHONY: migrate
 migrate:
-	php artisan migrate
+	docker-compose exec $(APP) php artisan migrate
+
+.PHONY: install
+install:
+	docker-compose exec $(APP) composer install
 
 .PHONY: bash
 bash:
