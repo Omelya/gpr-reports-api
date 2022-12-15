@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Update Composer
-        run: mkdir bootstrap/cache && chmod -R 777 bootstrap/cache && composer self-update 1.10.21 --no-interaction
+        run: composer self-update 1.10.21 --no-interaction
       - name: Run Composer Install
         run: composer install --no-interaction
       - name: Prepare Laravel Application
