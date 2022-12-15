@@ -25,11 +25,11 @@ class CreateInvolvementsTable extends Migration
             $table->enum('work_status', ['done', 'is_performed', 'execution_suspended']);
             $table->string('place_execution');
             $table->json('coordinates');
-            $table->string('examined');
+            $table->float('examined');
             $table->json('persons');
             $table->json('ammunition');
             $table->integer('all_ammunition');
-            $table->integer('tnt');
+            $table->float('tnt');
             $table->integer('detonator');
             $table->timestamps();
         });

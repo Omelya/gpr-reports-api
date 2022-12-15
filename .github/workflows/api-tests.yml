@@ -1,0 +1,48 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+
+jobs:
+  gpr-api-test:
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.0
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: gpr-reports-test
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    strategy:
+      matrix:
+        operating-system: [ 'ubuntu-latest' ]
+        php-versions: [ '8.0' ]
+        phpunit-versions: [ 'latest' ]
+        include:
+          - operating-system: 'ubuntu-latest'
+            php-versions: '8.0'
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update Composer
+        run: composer self-update 2.2.6 --no-interaction
+      - name: Run Composer Install
+        run: composer install --no-interaction
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.ci .env
+          php artisan key:generate
+      - name: run tests
+        run: |
+          php artisan migrate
+          rm .env
+          cp .env.ci .env
+          php artisan test
