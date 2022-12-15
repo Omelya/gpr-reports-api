@@ -48,7 +48,7 @@ class InvolvementFactory extends Factory
                 'Дмитро Митро'
             ]),
             'ammunition' => json_encode([
-                'артилерійський снаряд 152 мм' => fake()->randomDigitNotNull
+                'артилерійський снаряд 152 мм' => 2
             ]),
             'all_ammunition' => 1,
             'tnt' => fake()->randomFloat(1, 0, 100),
