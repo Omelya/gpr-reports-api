@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UsersAccessTokenResource;
 use App\Http\Resources\UsersResource;
 use App\Http\Transformers\Users\UsersTransformer;
 use App\Repositories\Users\UsersRepository;
@@ -13,10 +14,15 @@ class UsersController extends Controller
         UsersRequest $usersRequest,
         UsersTransformer $usersTransformer,
         UsersRepository $usersRepository
-    ) {
+    ): UsersAccessTokenResource {
         $usersDTO = $usersTransformer->transform($usersRequest);
         $users = $usersRepository->create($usersDTO);
 
-        return new UsersResource($users);
+        return new UsersAccessTokenResource($users);
+    }
+
+    public function get(): UsersResource
+    {
+        return new UsersResource(auth()->user());
     }
 }

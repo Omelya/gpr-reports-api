@@ -5,19 +5,19 @@ namespace App\Repositories\Users;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 use App\Services\Users\DTO\UsersDTO;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\NewAccessToken;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class UsersRepository extends BaseRepository
 {
-    public function create(UsersDTO $usersDTO): User|Builder
+    public function create(UsersDTO $usersDTO): NewAccessToken
     {
         if ($this->hasUser($usersDTO->getUsername())) {
             throw new UnprocessableEntityHttpException('Username already');
         }
 
-        return $this
+        $user = $this
             ->query()
             ->create([
                 'username' => $usersDTO->getUsername(),
@@ -29,6 +29,10 @@ class UsersRepository extends BaseRepository
                 'position' => $usersDTO->getPosition(),
                 'rank' => $usersDTO->getRank()
             ]);
+
+        $expiresAt = (new \DateTime())->add(new \DateInterval('P10D'));
+
+        return $user->createToken('auth-token', ['*'], $expiresAt);
     }
 
     public function hasUser(string $username): bool

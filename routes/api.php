@@ -16,6 +16,10 @@ use App\Http\Controllers\UsersController;
 |
 */
 Route::post('/users/create', [UsersController::class, 'create']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', [UsersController::class, 'get']);
+});
 Route::get('/all-involvement', [InvolvementController::class, 'getAll']);
 Route::post('/involvement', [InvolvementController::class, 'create']);
 Route::delete('/involvement/{id}', [InvolvementController::class, 'remove']);

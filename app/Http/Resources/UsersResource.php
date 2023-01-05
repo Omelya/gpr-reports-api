@@ -24,7 +24,9 @@ class UsersResource extends JsonResource
                 'father_name' => $this->father_name,
                 'birthday' => $this->birthday,
                 'position' => $this->position,
-                'rank' => $this->rank
+                'rank' => $this->rank,
+                'role' => $this->role,
+                'online' => $this->online
             ]
         ];
     }
