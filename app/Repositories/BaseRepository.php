@@ -3,16 +3,13 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 abstract class BaseRepository
 {
-    /**
-     * @return Model
-     */
     abstract protected function getModel();
 
-    protected function query()
+    protected function query(): Builder
     {
         return $this
             ->getModel()
