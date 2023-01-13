@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvolvementController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UsersController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,7 +15,11 @@ use App\Http\Controllers\ReportController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/users/create', [UsersController::class, 'create']);
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', [UsersController::class, 'get']);
+});
 Route::get('/all-involvement', [InvolvementController::class, 'getAll']);
 Route::post('/involvement', [InvolvementController::class, 'create']);
 Route::delete('/involvement/{id}', [InvolvementController::class, 'remove']);

@@ -3,6 +3,7 @@
 namespace App\Services\Report;
 
 use Illuminate\Database\Eloquent\Collection;
+use JsonException;
 
 class ReportServices
 {
@@ -108,6 +109,9 @@ class ReportServices
         return $number;
     }
 
+    /**
+     * @throws JsonException
+     */
     private function countAmmunitionByTypes(string $item): array
     {
         $ammunition = [];
@@ -116,15 +120,15 @@ class ReportServices
             $workType = substr($this->involvements[$i]->report_code, 0, 4);
 
             if ($workType === $item) {
-                foreach (json_decode($this->involvements[$i]->ammunition) as $type => $number) {
+                $ammunitionDecode = $this->ammunitionDecode($this->involvements[$i]->ammunition);
+                foreach ($ammunitionDecode as $type => $number) {
                     $type = str_replace('_', ' ' , $type);
 
                     foreach($this->ammunitionTypes as $ammunitionType) {
                         $ammunition[$ammunitionType] = $ammunition[$ammunitionType] ?? 0;
 
-                        if (preg_match("/$ammunitionType/ui", $type)) {
-                            $ammunition[$ammunitionType]+= $number;
-                        }
+                        $this->checkAmmunitionType($ammunitionType, $type)
+                            && $ammunition[$ammunitionType]+= $number;
                     }
                 }
             }
@@ -141,5 +145,18 @@ class ReportServices
         }
 
         return $ammunition;
+    }
+
+    /**
+     * @throws JsonException
+     */
+    private function ammunitionDecode(string $ammunition)
+    {
+        return json_decode($ammunition, false, 512, JSON_THROW_ON_ERROR);
+    }
+
+    private function checkAmmunitionType(string $ammunitionType, string $type): bool
+    {
+        return (bool)preg_match("/$ammunitionType/ui", $type);
     }
 }
