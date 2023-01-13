@@ -7,6 +7,7 @@ use App\Http\Resources\UsersResource;
 use App\Http\Transformers\Users\UsersTransformer;
 use App\Repositories\Users\UsersRepository;
 use App\Http\Requests\UsersRequest;
+use Illuminate\Http\Client\Response;
 
 class UsersController extends Controller
 {
@@ -14,7 +15,7 @@ class UsersController extends Controller
         UsersRequest $usersRequest,
         UsersTransformer $usersTransformer,
         UsersRepository $usersRepository
-    ): UsersAccessTokenResource {
+    ) {
         $usersDTO = $usersTransformer->transform($usersRequest);
         $users = $usersRepository->create($usersDTO);
 
