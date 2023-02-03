@@ -4,16 +4,11 @@ namespace App\Services\Report\DTO;
 
 class ReportDTO
 {
-    private string $dateFrom;
-    private string $dateTo;
-    private string $reportsType;
-
-    public function __construct(string $dateFrom, string $dateTo, string $reportsType)
-    {
-        $this->dateFrom = $dateFrom;
-        $this->dateTo = $dateTo;
-        $this->reportsType = $reportsType;
-    }
+    public function __construct(
+        private string $dateFrom,
+        private string $dateTo,
+        private string $reportsType,
+    ){}
 
     public function getDateFrom(): string
     {

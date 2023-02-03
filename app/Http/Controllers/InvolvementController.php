@@ -9,6 +9,7 @@ use App\Repositories\Involvement\InvolvementRepository;
 use App\Http\Resources\InvolvementResource;
 use App\Http\Resources\AllInvolvementResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class InvolvementController extends Controller
 {
@@ -16,7 +17,7 @@ class InvolvementController extends Controller
         InvolvementRequest $involvementRequest,
         InvolvementTransformer $involvementTransformer,
         InvolvementRepository $involvementRepository
-    ) {
+    ): InvolvementResource {
         $involvementDTO = $involvementTransformer->transform($involvementRequest);
         $involvement = $involvementRepository->create($involvementDTO);
 
@@ -26,7 +27,7 @@ class InvolvementController extends Controller
     public function getAll(
         Request $request,
         InvolvementRepository $involvementRepository
-    ) {
+    ): AllInvolvementResource {
         $involvement = $involvementRepository->getAll(
             $request->input('filter.order') ?? 'date_notification',
             $request->input('filter.direction') ?? 'asc'
@@ -38,8 +39,7 @@ class InvolvementController extends Controller
     public function remove(
         string $involvementId,
         InvolvementRepository $involvementRepository
-    )
-    {
+    ): Response {
         $involvementRepository->remove($involvementId);
 
         return response()->noContent();
@@ -50,7 +50,7 @@ class InvolvementController extends Controller
         InvolvementRequest $involvementRequest,
         InvolvementTransformer $involvementTransformer,
         InvolvementRepository $involvementRepository
-    ) {
+    ): InvolvementResource {
         $involvementDTO = $involvementTransformer->transform($involvementRequest);
         $involvement = $involvementRepository->edit($involvementDTO, $id);
 
@@ -60,7 +60,7 @@ class InvolvementController extends Controller
     public function get(
         string $id,
         InvolvementRepository $involvementRepository
-    ) {
+    ): InvolvementsResource {
         $involvement = $involvementRepository->getById($id);
 
         return new InvolvementsResource($involvement);
