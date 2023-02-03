@@ -30,7 +30,7 @@ class UsersRequest extends FormRequest
                 Rule::in('users')
             ],
             'data.attributes.username' => 'required|email',
-            'data.attributes.password' => 'required|string|min:8',
+            'data.attributes.password' => 'required|string|confirmed|min:8',
             'data.attributes.first_name' => 'required|string',
             'data.attributes.last_name' => 'required|string',
             'data.attributes.father_name' => 'required|string',

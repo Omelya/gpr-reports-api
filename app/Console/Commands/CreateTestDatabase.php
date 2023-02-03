@@ -33,7 +33,7 @@ class CreateTestDatabase extends Command
         $dbName = $this->argument('name');
         $db = DB::connection()->select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = "."'".$dbName."'");
         if(empty($db)) {
-            DB::connection()->select('CREATE DATABASE ' . $dbName);
+            DB::connection()->select('CREATE DATABASE ' . "`$dbName`");
             $this->info('The ' . $dbName . ' database has been created');
         } else $this->info('The ' . $dbName . ' database exists');
     }

@@ -25,10 +25,10 @@ class InvolvementRepository extends BaseRepository
                 'task_type' => $involvementDTO->getTaskType(),
                 'work_status' => $involvementDTO->getWorkStatus(),
                 'place_execution' => $involvementDTO->getPlaceExecution(),
-                'coordinates' => json_encode($involvementDTO->getCoordinates()),
+                'coordinates' => json_encode($involvementDTO->getCoordinates(), JSON_THROW_ON_ERROR),
                 'examined' => $involvementDTO->getExamined(),
-                'persons' => json_encode($involvementDTO->getPersons()),
-                'ammunition' => json_encode($involvementDTO->getAmmunition()),
+                'persons' => json_encode($involvementDTO->getPersons(), JSON_THROW_ON_ERROR),
+                'ammunition' => json_encode($involvementDTO->getAmmunition(), JSON_THROW_ON_ERROR),
                 'all_ammunition' => $involvementDTO->getAllAmmunition(),
                 'tnt' => $involvementDTO->getTnt(),
                 'detonator' => $involvementDTO->getDetonator()
@@ -61,13 +61,12 @@ class InvolvementRepository extends BaseRepository
             ->delete();
     }
 
-    public function edit(InvolvementDTO $involvementDTO, string $id)
+    public function edit(InvolvementDTO $involvementDTO, string $id): bool|int
     {
-        $involvement = $this
+        return $this
             ->query()
-            ->findOrFail($id);
-
-        return $involvement->update([
+            ->where('id', $id)
+            ->update([
             'act_code' => $involvementDTO->getActCode(),
             'report_code' => $involvementDTO->getReportCode(),
             'date_notification' => $involvementDTO->getDateNotification(),
@@ -87,7 +86,7 @@ class InvolvementRepository extends BaseRepository
         ]);
     }
 
-    public function getById(string $id)
+    public function getById(string $id): Model|null
     {
         return $this
             ->query()

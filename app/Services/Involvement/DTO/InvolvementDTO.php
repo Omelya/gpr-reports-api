@@ -4,73 +4,24 @@ namespace App\Services\Involvement\DTO;
 
 class InvolvementDTO
 {
-    private string $actCode;
-
-    private string $reportCode;
-
-    private string $dateNotification;
-
-    private string $dataReceived;
-
-    private string $startDate;
-
-    private string $endDate;
-
-    private string $taskType;
-
-    private  string $workStatus;
-
-    private string $placeExecution;
-
-    private array $coordinates;
-
-    private float|int $examined;
-
-    private array $persons;
-
-    private array $ammunition;
-
-    private int $allAmmunition;
-
-    private int $tnt;
-
-    private int $detonator;
-
     public function __construct(
-        string $actCode,
-        string $reportCode,
-        string $dateNotification,
-        string $dataReceived,
-        string $startDate,
-        string $endDate,
-        string $taskType,
-        string $workStatus,
-        string $placeExecution,
-        array $coordinates,
-        float|int $examined,
-        array $persons,
-        array $ammunition,
-        string $allAmmunition,
-        int $tnt,
-        int $detonator
-    ) {
-        $this->actCode = $actCode;
-        $this->reportCode = $reportCode;
-        $this->dateNotification = $dateNotification;
-        $this->dataReceived = $dataReceived;
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
-        $this->taskType = $taskType;
-        $this->workStatus = $workStatus;
-        $this->placeExecution = $placeExecution;
-        $this->coordinates = $coordinates;
-        $this->examined = $examined;
-        $this->persons = $persons;
-        $this->ammunition = $ammunition;
-        $this->allAmmunition = $allAmmunition;
-        $this->tnt = $tnt;
-        $this->detonator = $detonator;
-    }
+        private string $actCode,
+        private string $reportCode,
+        private string $dateNotification,
+        private string $dataReceived,
+        private string $startDate,
+        private string $endDate,
+        private string $taskType,
+        private  string $workStatus,
+        private string $placeExecution,
+        private array $coordinates,
+        private float|int $examined,
+        private array $persons,
+        private array $ammunition,
+        private int $allAmmunition,
+        private int $tnt,
+        private int $detonator,
+    ) {}
 
     /**
      * @return string

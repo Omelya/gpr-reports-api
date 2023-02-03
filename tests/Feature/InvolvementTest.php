@@ -5,11 +5,13 @@ namespace Tests\Feature;
 use App\Models\Involvement;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class InvolvementTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     /**
      * A basic feature test example.

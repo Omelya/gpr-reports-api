@@ -2,16 +2,18 @@
 
 namespace App\Repositories\Users;
 
+use App\Entities\UserWithAccessToken;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 use App\Services\Users\DTO\UsersDTO;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\NewAccessToken;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class UsersRepository extends BaseRepository
 {
-    public function create(UsersDTO $usersDTO): NewAccessToken
+    public function create(UsersDTO $usersDTO): UserWithAccessToken
     {
         if ($this->hasUser($usersDTO->getUsername())) {
             throw new UnprocessableEntityHttpException('Username already');
@@ -32,7 +34,21 @@ class UsersRepository extends BaseRepository
 
         $expiresAt = (new \DateTime())->add(new \DateInterval('P10D'));
 
-        return $user->createToken('auth-token', ['*'], $expiresAt);
+        $token = $user->createToken('auth-token', ['*'], $expiresAt);
+
+        return new UserWithAccessToken($token, $user);
+    }
+
+    public function getUserByUsername(string $username): User|Builder
+    {
+        if (!$this->hasUser($username)) {
+            throw new ModelNotFoundException('This username was not found');
+        }
+
+        return $this
+            ->query()
+            ->where('username', $username)
+            ->first();
     }
 
     public function hasUser(string $username): bool
