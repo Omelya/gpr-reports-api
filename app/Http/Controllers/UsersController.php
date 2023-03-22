@@ -28,8 +28,7 @@ class UsersController extends Controller
         AuthRequest $authRequest,
         AuthTransformer $authTransformer,
         AuthService $authService
-    )
-    {
+    ): UsersWithAccessTokenResource {
         $authDTO = $authTransformer->transform($authRequest);
         $userWithToken = $authService->auth($authDTO);
 

@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class InvolvementRepository extends BaseRepository
 {
+    /**
+     * @throws \JsonException
+     */
     public function create(InvolvementDTO $involvementDTO): Model|Builder
     {
         return $this
@@ -61,6 +64,9 @@ class InvolvementRepository extends BaseRepository
             ->delete();
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function edit(InvolvementDTO $involvementDTO, string $id): bool|int
     {
         return $this
@@ -76,10 +82,10 @@ class InvolvementRepository extends BaseRepository
             'task_type' => $involvementDTO->getTaskType(),
             'work_status' => $involvementDTO->getWorkStatus(),
             'place_execution' => $involvementDTO->getPlaceExecution(),
-            'coordinates' => json_encode($involvementDTO->getCoordinates()),
+            'coordinates' => json_encode($involvementDTO->getCoordinates(), JSON_THROW_ON_ERROR),
             'examined' => $involvementDTO->getExamined(),
-            'persons' => json_encode($involvementDTO->getPersons()),
-            'ammunition' => json_encode($involvementDTO->getAmmunition()),
+            'persons' => json_encode($involvementDTO->getPersons(), JSON_THROW_ON_ERROR),
+            'ammunition' => json_encode($involvementDTO->getAmmunition(), JSON_THROW_ON_ERROR),
             'all_ammunition' => $involvementDTO->getAllAmmunition(),
             'tnt' => $involvementDTO->getTnt(),
             'detonator' => $involvementDTO->getDetonator()

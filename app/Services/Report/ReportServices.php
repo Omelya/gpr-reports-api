@@ -57,6 +57,9 @@ class ReportServices
         return $this->reports;
     }
 
+    /**
+     * @throws JsonException
+     */
     public function createReportByWorkType(string $type, string $name): array
     {
         $completedApplications = $this->getCountedNumberParams($type, 'done');
@@ -122,9 +125,9 @@ class ReportServices
             if ($workType === $item) {
                 $ammunitionDecode = $this->ammunitionDecode($this->involvements[$i]->ammunition);
                 foreach ($ammunitionDecode as $type => $number) {
-                    $type = str_replace('_', ' ' , $type);
+                    $type = str_replace('_', ' ', $type);
 
-                    foreach($this->ammunitionTypes as $ammunitionType) {
+                    foreach ($this->ammunitionTypes as $ammunitionType) {
                         $ammunition[$ammunitionType] = $ammunition[$ammunitionType] ?? 0;
 
                         $this->checkAmmunitionType($ammunitionType, $type)

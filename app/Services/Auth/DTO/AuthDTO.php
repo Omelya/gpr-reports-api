@@ -7,7 +7,8 @@ class AuthDTO
     public function __construct(
         private string $username,
         private string $password
-    ) {}
+    ) {
+    }
 
     /**
      * @return string

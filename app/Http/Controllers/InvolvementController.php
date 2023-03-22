@@ -13,6 +13,9 @@ use Illuminate\Http\Response;
 
 class InvolvementController extends Controller
 {
+    /**
+     * @throws \JsonException
+     */
     public function create(
         InvolvementRequest $involvementRequest,
         InvolvementTransformer $involvementTransformer,
@@ -45,6 +48,9 @@ class InvolvementController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function edit(
         string $id,
         InvolvementRequest $involvementRequest,

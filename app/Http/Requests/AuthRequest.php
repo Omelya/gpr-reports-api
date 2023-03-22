@@ -10,7 +10,7 @@ class AuthRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @return bool
+     * @return boolean
      */
     public function authorize()
     {
@@ -22,12 +22,16 @@ class AuthRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+
+    public function rules(): array
     {
         return [
-            'data.type' => ['required', Rule::in('users')],
+            'data.type'                => [
+                'required',
+                Rule::in('users'),
+            ],
             'data.attributes.username' => 'required|email',
-            'data.attributes.password' => 'required|min:8'
+            'data.attributes.password' => 'required|min:8',
         ];
     }
 }

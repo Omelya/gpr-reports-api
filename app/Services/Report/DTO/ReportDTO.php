@@ -8,7 +8,8 @@ class ReportDTO
         private string $dateFrom,
         private string $dateTo,
         private string $reportsType,
-    ){}
+    ) {
+    }
 
     public function getDateFrom(): string
     {

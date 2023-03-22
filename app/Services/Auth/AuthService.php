@@ -13,7 +13,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class AuthService
 {
     public function __construct(private UsersRepository $usersRepository)
-    {}
+    {
+    }
 
     public function auth(AuthDTO $authDTO): UserWithAccessToken
     {
@@ -35,8 +36,7 @@ class AuthService
             ->createToken(
                 'auth-token',
                 ['*'],
-                now()->add(new \DateInterval('P10D')
-                )
+                now()->add(new \DateInterval('P10D'))
             );
     }
 }

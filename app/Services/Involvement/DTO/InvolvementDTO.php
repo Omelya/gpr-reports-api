@@ -12,7 +12,7 @@ class InvolvementDTO
         private string $startDate,
         private string $endDate,
         private string $taskType,
-        private  string $workStatus,
+        private string $workStatus,
         private string $placeExecution,
         private array $coordinates,
         private float|int $examined,
@@ -21,7 +21,8 @@ class InvolvementDTO
         private int $allAmmunition,
         private int $tnt,
         private int $detonator,
-    ) {}
+    ) {
+    }
 
     /**
      * @return string
