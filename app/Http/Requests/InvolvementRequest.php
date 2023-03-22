@@ -25,34 +25,34 @@ class InvolvementRequest extends FormRequest
     public function rules()
     {
         return [
-            'data.type' => [
+            'data.type'                         => [
                 'required',
-                Rule::in('report')
+                Rule::in('report'),
             ],
-            'data.attributes.act_code' => 'required|string|min:12',
-            'data.attributes.report_code' => 'required|string|min:12',
+            'data.attributes.act_code'          => 'required|string|min:12',
+            'data.attributes.report_code'       => 'required|string|min:12',
             'data.attributes.date_notification' => 'required|string|date_format:Y-m-d',
-            'data.attributes.date_received' => 'required|string|date_format:Y-m-d h:i',
-            'data.attributes.start_date' => 'required|string|date_format:Y-m-d h:i',
-            'data.attributes.end_date' => 'required|string|date_format:Y-m-d h:i',
-            'data.attributes.task_type' => 'required|string',
-            'data.attributes.work_status' => [
+            'data.attributes.date_received'     => 'required|string|date_format:Y-m-d H:i',
+            'data.attributes.start_date'        => 'required|string|date_format:Y-m-d H:i',
+            'data.attributes.end_date'          => 'required|string|date_format:Y-m-d H:i',
+            'data.attributes.task_type'         => 'required|string',
+            'data.attributes.work_status'       => [
                 'required',
                 'string',
-                Rule::in(['done', 'is_performed', 'execution_suspended'])
+                Rule::in(['done', 'is_performed', 'execution_suspended']),
             ],
-            'data.attributes.place_execution' => 'required|string',
-            'data.attributes.coordinates' => 'required|array|size:2',
-            'data.attributes.coordinates.N' => 'required|numeric',
-            'data.attributes.coordinates.E' => 'required|numeric',
-            'data.attributes.examined' => 'required|numeric',
-            'data.attributes.persons' => 'required|array|min:1',
-            'data.attributes.persons.*' => 'required|string',
-            'data.attributes.ammunition' => 'array',
-            'data.attributes.ammunition.*' => 'required_with:data.attributes.ammunitions',
-            'data.attributes.all_ammunition' => 'required_with:data.attributes.ammunitions|integer|min:0',
-            'data.attributes.tnt' => 'required|numeric',
-            'data.attributes.detonator' => 'required|integer'
+            'data.attributes.place_execution'   => 'required|string',
+            'data.attributes.coordinates'       => 'required|array|size:2',
+            'data.attributes.coordinates.N'     => 'required|numeric',
+            'data.attributes.coordinates.E'     => 'required|numeric',
+            'data.attributes.examined'          => 'required|numeric',
+            'data.attributes.persons'           => 'required|array|min:1',
+            'data.attributes.persons.*'         => 'required|string',
+            'data.attributes.ammunition'        => 'array',
+            'data.attributes.ammunition.*'      => 'required_with:data.attributes.ammunitions',
+            'data.attributes.all_ammunition'    => 'required_with:data.attributes.ammunitions|integer|min:0',
+            'data.attributes.tnt'               => 'required|numeric',
+            'data.attributes.detonator'         => 'required|integer',
         ];
     }
 }

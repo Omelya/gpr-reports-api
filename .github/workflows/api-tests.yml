@@ -9,7 +9,7 @@ jobs:
   gpr-api-test:
     runs-on: ubuntu-latest
     container:
-      image: kirschbaumdevelopment/laravel-test-runner:8.0
+      image: kirschbaumdevelopment/laravel-test-runner:8.1
 
     services:
       mysql:
@@ -24,18 +24,18 @@ jobs:
     strategy:
       matrix:
         operating-system: [ 'ubuntu-latest' ]
-        php-versions: [ '8.0' ]
+        php-versions: [ '8.1' ]
         phpunit-versions: [ 'latest' ]
         include:
           - operating-system: 'ubuntu-latest'
-            php-versions: '8.0'
+            php-versions: '8.1'
 
     steps:
       - uses: actions/checkout@v3
       - name: Update Composer
         run: composer self-update 2.2.6 --no-interaction
       - name: Run Composer Install
-        run: composer install --no-interaction
+        run: composer install --no-interaction --ignore-platform-req=ext-xdebug
       - name: Prepare Laravel Application
         run: |
           cp .env.ci .env

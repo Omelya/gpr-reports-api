@@ -4,33 +4,16 @@ namespace App\Services\Users\DTO;
 
 class UsersDTO
 {
-    private string $username;
-    private string $password;
-    private string $firstName;
-    private string $lastName;
-    private string $fatherName;
-    private string $birthday;
-    private string $position;
-    private string $rank;
-
     public function __construct(
-        string $username,
-        string $password,
-        string $firstName,
-        string $lastName,
-        string $fatherName,
-        string $birthday,
-        string $position,
-        string $rank
+        private string $username,
+        private string $password,
+        private string $firstName,
+        private string $lastName,
+        private string $fatherName,
+        private string $birthday,
+        private string $position,
+        private string $rank,
     ) {
-        $this->username = $username;
-        $this->password = $password;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->fatherName = $fatherName;
-        $this->birthday = $birthday;
-        $this->position = $position;
-        $this->rank = $rank;
     }
 
     /**

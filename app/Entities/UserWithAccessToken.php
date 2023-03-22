@@ -10,8 +10,8 @@ class UserWithAccessToken
     public function __construct(
         private NewAccessToken $accessToken,
         private User $user,
-    )
-    {}
+    ) {
+    }
 
     /**
      * @return NewAccessToken

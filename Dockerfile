@@ -8,6 +8,8 @@ RUN  cp /app/docker/config/nginx/app.conf /opt/docker/etc/nginx/vhost.conf \
 
 EXPOSE 80
 
+PORT 80
+
 VOLUME ["/app/storage/logs"]
 
 WORKDIR /app
