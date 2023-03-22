@@ -35,7 +35,7 @@ jobs:
       - name: Update Composer
         run: composer self-update 2.2.6 --no-interaction
       - name: Run Composer Install
-        run: composer install --no-interaction
+        run: composer install --no-interaction --ignore-platform-req=ext-xdebug
       - name: Prepare Laravel Application
         run: |
           cp .env.ci .env
